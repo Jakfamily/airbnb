@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_05_075053) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_05_091708) do
   create_table "cities", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -31,10 +31,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_05_075053) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "strolldogs", force: :cascade do |t|
+    t.integer "dog_id"
+    t.integer "stroll_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dog_id"], name: "index_strolldogs_on_dog_id"
+    t.index ["stroll_id"], name: "index_strolldogs_on_stroll_id"
+  end
+
   create_table "strolls", force: :cascade do |t|
     t.integer "duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "city_id"
+    t.index ["city_id"], name: "index_strolls_on_city_id"
   end
 
+  add_foreign_key "strolls", "cities"
 end
